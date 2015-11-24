@@ -1,0 +1,73 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
+
+int main() {
+    
+    int l,c,x,a,soma=0,aux=0,aux2=0;
+    int M[60][3];
+    int S[3000][6];
+    srand(time(NULL));  // seed para tornar a 'rand' realmente aleatória
+
+    // Matriz para referência:
+    
+    for (l=0;l<60;l++) {
+
+        for (c=0;c<3;c++) { 
+            M[l][0] = l+1;   
+            M[l][1] = 0;
+            M[l][2] = 0;
+            printf ("%.2d ", M[l][c]);
+            }
+        printf ("\n");
+        }
+     
+    system ("pause>>null");
+    system ("cls");
+    
+    // Matriz que gera os sorteios:
+              
+    for (l=0;l<10;l++) {
+        for (a=0;a<60;a++)
+            M[a][1] = 0;
+
+        for (c=0;c<6;c++) {
+            
+            S[l][c] = rand()%60+1;
+            x = S[l][c];
+
+            if (M[x-1][1]!=1) {
+               M[x-1][1] = 1;
+               M[x-1][2]++;
+               soma++;
+            }else {
+                 S[l][c] = rand()%60+1;
+                 x = S[l][c];
+                 M[x-1][2]++;
+                 soma++; }
+            printf ("%.2d ", S[l][c]);
+            }
+        printf ("\n");
+        }
+    
+    // Entrada dos jogadores:  // <-- Inacabado
+    
+    char J[3][100];
+    int num[6];
+    
+    for (l=0;l<3;l++) {
+        
+        printf ("\n Jogador %d, entre com seu nome: ", l+1);
+        fflush(stdin);
+        gets (J[l]);
+        
+        for (c=0;c<6;c++) {
+            printf ("\n Entre com o numero %d: ", c+1);
+            fflush(stdin);
+            scanf ("%d ", &num[c]);
+            }
+        }    
+
+    system ("pause>>null");
+}   

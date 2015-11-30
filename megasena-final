@@ -4,7 +4,7 @@
 // Denis de Souza Magalhães            R.A 3015106611
 // Felipe Jefferson da Silva           R.A 3015103557 
 // Caio Ortega de Morais               R.A 3015100374
-// Gustavo                             R.A 
+// Gustavo Souza Neves                 R.A 3015106951
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,21 +18,26 @@ int main() {
     int S[3000][6];
     srand(time(NULL));  // seed para tornar a 'rand' realmente aleatória
 
+    printf ("\n\tPrograma da Megasena\n\n-----------------------\n");
+    for (l=1;l<=10;l++) {
+        for (c=1;c<=6;c++) {
+            aux++;
+            printf (" %.2d ", aux); }
+        printf ("\n"); }
+    printf ("-----------------------\n");
+    system ("pause");
+    system ("cls");
+
     // Matriz para referência:
     
     for (l=0;l<60;l++) {
 
-        for (c=0;c<3;c++) { 
-            M[l][0] = l+1;   
-            M[l][1] = 0;
-            M[l][2] = 0;
-            printf ("%.2d ", M[l][c]);
+        for (c=0;c<3;c++) {   // Serve pra ser usada como um "índice" que indica
+            M[l][0] = l+1;    // quais os números possíveis pra escolha, quais
+            M[l][1] = 0;      // números foram usados e quantas vezes cada número
+            M[l][2] = 0;      // foi usado.
             }
-        printf ("\n");
         }
-     
-    system ("pause>>null");
-    system ("cls");
     
     // Matriz que gera os sorteios:
               
@@ -42,14 +47,14 @@ int main() {
 
         for (c=0;c<6;c++) {
             
-            S[l][c] = rand()%60+1;
+            S[l][c] = rand()%60+1; // O +1 serve para que o número 0 não seja escolhido
             x = S[l][c];
 
             if (M[x-1][1]!=1) {
-               M[x-1][1] = 1;
+               M[x-1][1] = 1; // Usando a matriz referência para armazenar dados
                M[x-1][2]++;
             }else {
-                 S[l][c] = rand()%60+1;
+                 S[l][c] = rand()%60+1; // Se o número gerado for igual, ele gera outro
                  x = S[l][c];
                  M[x-1][2]++;
                  }
@@ -83,7 +88,7 @@ int main() {
     system ("pause>>null");
 
     aux=0;
-    for (c=0;c<60;c++)
+    for (c=0;c<60;c++) // Zerando a matriz referência para poder ser usada denovo
         M[c][1]=0;
 
     for (l=0;l<15;l++) {
@@ -91,7 +96,7 @@ int main() {
 
         if (M[c][1]!=1) {
 
-           if (M[c][2]>aux){
+           if (M[c][2]>aux){ // armazena os números que mais ocorreram nos sorteios
               aux=M[c][2];
               aux2=c;      }
            }
@@ -105,34 +110,31 @@ int main() {
     system ("pause>>null");
     system ("cls");
     
-    // Entrada dos jogadores:  <-- Inacabado
+    // Entrada dos jogadores:
     
     char nome[3][100];
-       int jogos[3][6];
-       for (l=0;l<60;l++) {
-            M[l][1] = 0;
-            }
-       
+    int jogos[3][6];
+
        for(l=0;l<3;l++){
-           printf("nome:");
+           for (a=0;a<60;a++) {
+            M[a][1] = 0;
+            }
+
+           printf("nome: ");
            fflush(stdin);
-           gets(nome[l]);
-           printf("Sorteio do jogador %s :\n",nome[l]);
-           for(c=0;c<6;c++){
+           gets(nome[l]); // Armazenando os nomes no vetor
+           printf("Sorteio do jogador %s:\n",nome[l]);
+
+           for(c=0;c<6;c++) {
+
            do{
-           printf("numero %d :",c+1);                                        
-           scanf("%d",&jogos[l][c]);
-           if(jogos[l][c]!=M[jogos[l][c]][1]){
-           M[jogos[l][c]][1]=1;
-           }
-            
-           }while((jogos[l][c]<0 || jogos[l][c]>60) || (jogos[l][c]==(M[jogos[l][c]][1]==1)));
-           
+           printf("numero %d :",c+1);
+           scanf("%d",&jogos[l][c]); // Armazenando os números do jogo no vetor
+           }while(jogos[l][c]<=0 || jogos[l][c]>60);
            }
        }
-           
-       for (l=0;l<1;l++){
-           printf("\nsorteio do %s\n",nome[l]);
+       for (l=0;l<3;l++){
+           printf("\n\nsorteio do %s\n",nome[l]);
            for(c=0;c<6;c++){
                             printf("%d ",jogos[l][c]);
                             }
@@ -141,12 +143,15 @@ int main() {
     system ("pause>>null");
     system ("cls");
     
-    // comparaçao dos jogos com os sorteios
-    
+    // Comparaçao dos jogos com os sorteios:
+    /* Essa parte compara os 3 jogos com todos os sorteios, seleciona o sorteio
+    que teve mais acertos de acordo com o jogo, e exibe quantos numeros o
+    jogador acertou. */
+
     int comparar=0,auxiliar=0,z,y;
     for (z=0;z<3;z++){
         auxiliar=0;
-        //printf("O jogador %s acertou %d numeros",nome[z],comparador);
+
     for (l=0;l<3000;l++){
         comparar=0;
         for(c=0;c<6;c++){
@@ -162,7 +167,7 @@ int main() {
                          }
                          
                          }
-                         printf("PARABENS %s voce acertou %d numeros! \n",nome[z],auxiliar);
+                         printf("PARABENS %s voce acertou %d numeros! \n\n",nome[z],auxiliar);
                          }
         system ("pause>>null");
 }   
